@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        h2{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Contact Form</h2>
+    <form action="/submit_form" method="POST">
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="firstname" placeholder="Enter your first name.." required><br>
+
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lastname" placeholder="Enter your last name.." required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter email address.." required><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter phone number.."><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob"><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="usa">United States</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+            <option value="india">India</option>
+            <!-- Add more countries as needed -->
+        </select><br>
+
+        <label for="state">State:</label>
+        <select id="state" name="state" onchange="updateCities()">
+            <option value="gujarat">Gujarat</option>
+            <option value="maharashtra">Maharashtra</option>
+            <option value="madhyapradesh">Madhya Pradesh</option>
+            <!-- Add more states as needed -->
+        </select><br>
+
+        <label for="city">City:</label>
+        <select id="city" name="city">
+            <!-- Cities will be populated dynamically based on the selected state -->
+        </select><br>
+
+        <label for="gender">Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Other</label><br><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="6" placeholder="Your message.."></textarea>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        const cityOptions = {
+            gujarat: [
+                { value: 'ahmedabad', text: 'Ahmedabad' },
+                { value: 'gandhinagar', text: 'Gandhinagar' },
+                { value: 'mehsana', text: 'Mehsana' },
+                { value: 'surat', text: 'Surat' }
+            ],
+            maharashtra: [
+                { value: 'mumbai', text: 'Mumbai' },
+                { value: 'pune', text: 'Pune' },
+                { value: 'nagpur', text: 'Nagpur' },
+                { value: 'nashik', text: 'Nashik' }
+            ],
+            madhyapradesh: [
+                { value: 'bhopal', text: 'Bhopal' },
+                { value: 'indore', text: 'Indore' },
+                { value: 'gwalior', text: 'Gwalior' },
+                { value: 'jabalpur', text: 'Jabalpur' }
+            ]
+        };
+
+        function updateCities() {
+            const stateSelect = document.getElementById('state');
+            const citySelect = document.getElementById('city');
+            const selectedState = stateSelect.value;
+
+            // Clear the current options in the city dropdown
+            citySelect.innerHTML = '';
+
+            // Populate the city dropdown with cities from the selected state
+            cityOptions[selectedState].forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.value;
+                option.text = city.text;
+                citySelect.appendChild(option);
+            });
+        }
+
+        // Initialize cities based on the default selected state
+        updateCities();
+    </script>
+
+</body>
+</html>
